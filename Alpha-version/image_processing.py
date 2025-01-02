@@ -30,6 +30,8 @@ def get_dataset(path_to_images_folder: str = None, desired_size = (400, 400), ma
   # Проходим по всем файлам в директории
   for filename in list_files_recursively(path_to_images_folder):
 
+      if len(images_list) >= max_samples: break
+      
       if filename.endswith(".jpg"):  # Проверяем, что файл является изображением в формате JPG
 
           # Загружаем изображение в BGR
@@ -41,7 +43,6 @@ def get_dataset(path_to_images_folder: str = None, desired_size = (400, 400), ma
               image_resized = cv2.resize(image_rgb, desired_size)
               images_list.append(image_resized)
               
-      if len(images_list) > max_samples: break
 
   images_array = np.array(images_list, dtype=np.uint8)
 
